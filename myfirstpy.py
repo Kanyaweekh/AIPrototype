@@ -6,3 +6,4 @@ if __name__ == "__main__":
         time.sleep(1)
         print(f'xxx {i} xxx')
 print('Kanyawee')
+print('Khamudom')
