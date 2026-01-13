@@ -3,39 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Iris Classifier</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    
+    <title>Iris Predictor</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div class="container">
-        <h1>🌿 Iris Predictor</h1>
-        <form id="prediction-form">
-            <div class="input-group">
-                <label>Sepal Length</label>
-                <input type="number" step="0.1" name="sepal_length" placeholder="e.g. 5.1" required>
-            </div>
-            <div class="input-group">
-                <label>Sepal Width</label>
-                <input type="number" step="0.1" name="sepal_width" placeholder="e.g. 3.5" required>
-            </div>
-            <div class="input-group">
-                <label>Petal Length</label>
-                <input type="number" step="0.1" name="petal_length" placeholder="e.g. 1.4" required>
-            </div>
-            <div class="input-group">
-                <label>Petal Width</label>
-                <input type="number" step="0.1" name="petal_width" placeholder="e.g. 0.2" required>
-            </div>
-            
-            <button type="submit">Analyze Flower</button>
-        </form>
+    <div class="card-container">
+        <div class="header-section">
+            <h1>🌸 IRIS PREDICTOR</h1>
+        </div>
 
-        <div id="result-area">
-            <div class="loader" id="loader"></div>
-            <div id="result-text"></div>
+        <div class="main-content">
+            <div class="left-panel">
+                <h3>Input Features</h3>
+                <form id="prediction-form">
+                    <div class="form-group">
+                        <label>Sepal Length</label>
+                        <input type="number" step="0.1" name="sepal_length" placeholder="0.0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Sepal Width</label>
+                        <input type="number" step="0.1" name="sepal_width" placeholder="0.0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Petal Length</label>
+                        <input type="number" step="0.1" name="petal_length" placeholder="0.0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Petal Width</label>
+                        <input type="number" step="0.1" name="petal_width" placeholder="0.0" required>
+                    </div>
+                    
+                    <button type="submit">Predict Result</button>
+                </form>
+            </div>
+
+            <div class="right-panel">
+                <div id="loading-spinner" class="spinner" style="display: none;"></div>
+                
+                <div id="placeholder-state">
+                    <div class="icon-circle">🌸</div>
+                    <p>กรอกข้อมูลแล้วกดปุ่ม<br>เพื่อดูผลลัพธ์ทางนี้</p>
+                </div>
+
+                <div id="result-state" style="display: none;">
+                    <div class="image-box">
+                        <img id="flower-image" src="" alt="Flower Image" 
+                             onerror="this.style.display='none'; document.getElementById('error-msg').style.display='block';">
+                        <p id="error-msg" style="display:none; color:red; font-size:12px;">⚠️ ไม่พบไฟล์รูปภาพ</p>
+                    </div>
+                    <h2 id="result-name">SPECIES NAME</h2>
+                </div>
+            </div>
         </div>
     </div>
 
