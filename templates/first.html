@@ -3,62 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iris Predictor</title>
+    <title>Pastel Iris Predictor</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Quicksand:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <div class="bg-image"></div>
+    <div class="overlay-gradient"></div>
+    <div id="floating-container"></div>
 
-    <div class="card-container">
-        <div class="header-section">
-            <h1>🌸 IRIS PREDICTOR</h1>
-        </div>
+    <div class="main-container">
+        <div class="glass-card">
+            <div class="left-section">
+                <div class="header-box">
+                    <h1>🌸 IRIS <span>PREDICTOR</span></h1>
+                    <p>ระบบทำนายสายพันธุ์ดอกไม้</p>
+                </div>
 
-        <div class="main-content">
-            <div class="left-panel">
-                <h3>Input Features</h3>
                 <form id="prediction-form">
-                    <div class="form-group">
-                        <label>Sepal Length</label>
-                        <input type="number" step="0.1" name="sepal_length" placeholder="0.0" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Sepal Width</label>
-                        <input type="number" step="0.1" name="sepal_width" placeholder="0.0" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Petal Length</label>
-                        <input type="number" step="0.1" name="petal_length" placeholder="0.0" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Petal Width</label>
-                        <input type="number" step="0.1" name="petal_width" placeholder="0.0" required>
+                    <div class="input-wrapper">
+                        <div class="input-box">
+                            <label>Sepal Length</label>
+                            <input type="number" step="0.1" name="sepal_length" placeholder="0.0" required>
+                        </div>
+                        <div class="input-box">
+                            <label>Sepal Width</label>
+                            <input type="number" step="0.1" name="sepal_width" placeholder="0.0" required>
+                        </div>
+                        <div class="input-box">
+                            <label>Petal Length</label>
+                            <input type="number" step="0.1" name="petal_length" placeholder="0.0" required>
+                        </div>
+                        <div class="input-box">
+                            <label>Petal Width</label>
+                            <input type="number" step="0.1" name="petal_width" placeholder="0.0" required>
+                        </div>
                     </div>
                     
-                    <button type="submit">Predict Result</button>
+                    <button type="submit" style="font-family: 'Quicksand', sans-serif;">
+                        <i class="fa-solid fa-wand-sparkles fa-bounce" style="--fa-animation-duration: 2s;"></i>
+                        &nbsp; SEE RESULT
+                    </button>
                 </form>
             </div>
 
-            <div class="right-panel">
-                <div id="loading-spinner" class="spinner" style="display: none;"></div>
-                
-                <div id="placeholder-state">
-                    <div class="icon-circle">🌸</div>
-                    <p>กรอกข้อมูลแล้วกดปุ่ม<br>เพื่อดูผลลัพธ์ทางนี้</p>
-                </div>
+            <div class="right-section printer-zone">
+                <div class="printer-slot"><div class="slot-shadow"></div></div>
 
-                <div id="result-state" style="display: none;">
-                    <div class="image-box">
-                        <img id="flower-image" src="" alt="Flower Image" 
-                             onerror="this.style.display='none'; document.getElementById('error-msg').style.display='block';">
-                        <p id="error-msg" style="display:none; color:red; font-size:12px;">⚠️ ไม่พบไฟล์รูปภาพ</p>
+                <div class="paper-exit-area">
+                    <div id="receipt-paper" class="receipt">
+                        <div class="receipt-header">
+                            <span>✨ PREDICTION REPORT</span>
+                            <span id="print-time">--:--</span>
+                        </div>
+                        <div class="divider-dashed"></div>
+
+                        <div class="photo-frame">
+                            <img id="flower-image" alt="Flower Result">
+                            <div id="error-box" style="display:none; padding-top:20px; color:red; font-size:12px;">
+                                <strong>IMAGE NOT FOUND</strong>
+                            </div>
+                        </div>
+
+                        <div class="receipt-body">
+                            <span class="label">DETECTED SPECIES:</span>
+                            <h2 id="result-name">LOADING...</h2>
+                        </div>
+                        
+                        <div class="zigzag-bottom"></div>
                     </div>
-                    <h2 id="result-name">SPECIES NAME</h2>
+                    
+                    <div id="status-msg">READY...</div>
                 </div>
             </div>
         </div>
     </div>
-
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
