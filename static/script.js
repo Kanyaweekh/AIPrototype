@@ -1,39 +1,52 @@
-// static/script.js
-
 document.getElementById('prediction-form').addEventListener('submit', async function(e) {
-    e.preventDefault(); // ป้องกันการรีโหลดหน้าเว็บ
+    e.preventDefault();
 
-    // อ้างอิง Element
-    const loader = document.getElementById('loader');
-    const resultText = document.getElementById('result-text');
+    const placeholder = document.getElementById('placeholder-state');
+    const resultState = document.getElementById('result-state');
+    const spinner = document.getElementById('loading-spinner');
+    const resultName = document.getElementById('result-name');
+    const flowerImage = document.getElementById('flower-image');
+    const errorMsg = document.getElementById('error-msg');
+
+    // 1. เริ่มโหลด: ซ่อนทุกอย่าง แสดง Spinner
+    placeholder.style.display = 'none';
+    resultState.style.display = 'none';
+    spinner.style.display = 'block';
+    
+    // Reset รูปภาพ
+    flowerImage.style.display = 'block'; 
+    errorMsg.style.display = 'none';
+
     const formData = new FormData(this);
 
-    // แสดง Loader และเคลียร์ผลเก่า
-    loader.style.display = 'block';
-    resultText.innerHTML = '';
-
     try {
-        // ส่งข้อมูลไปยัง Python API
         const response = await fetch('/api/predict', {
             method: 'POST',
             body: formData
         });
-        
         const data = await response.json();
 
-        // หน่วงเวลาเล็กน้อยเพื่อให้เห็น Animation
+        // หน่วงเวลา 0.8 วิ ให้ดูเหมือนคิด
         setTimeout(() => {
-            loader.style.display = 'none';
+            spinner.style.display = 'none';
+
             if (data.error) {
-                resultText.innerHTML = `<span style="color:red">${data.error}</span>`;
+                alert("Error: " + data.error);
+                placeholder.style.display = 'block'; // กลับไปหน้าเริ่ม
             } else {
-                resultText.innerHTML = `<div class="prediction-text">${data.class}</div>`;
+                // 2. แสดงผล
+                resultState.style.display = 'block';
+                resultName.innerText = data.class;
+                
+                // ใส่ Timestamp ต่อท้ายเพื่อแก้ปัญหา Browser จำรูปเดิม (Cache)
+                flowerImage.src = `/static/images/${data.image_file}?t=${new Date().getTime()}`;
             }
-        }, 500);
+        }, 800);
 
     } catch (error) {
-        console.error('Error:', error);
-        loader.style.display = 'none';
-        resultText.innerHTML = '<span style="color:red">An error occurred.</span>';
+        console.error(error);
+        spinner.style.display = 'none';
+        placeholder.style.display = 'block';
+        alert("เกิดข้อผิดพลาดในการเชื่อมต่อ");
     }
 });
