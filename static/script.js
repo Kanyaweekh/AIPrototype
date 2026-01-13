@@ -1,52 +1,79 @@
+/* --- Floating Elements --- */
+document.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById('floating-container');
+    if (!container) return;
+    const icons = ['🌸', '✨', '🎫', '☁️', '🎀'];
+    for (let i = 0; i < 20; i++) {
+        const el = document.createElement('div');
+        el.classList.add('floater');
+        el.innerText = icons[Math.floor(Math.random() * icons.length)];
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.fontSize = (Math.random() * 20 + 10) + 'px';
+        el.style.animationDuration = (Math.random() * 10 + 8) + 's';
+        el.style.animationDelay = Math.random() * 5 + 's';
+        container.appendChild(el);
+    }
+});
+
+/* --- Print Logic --- */
 document.getElementById('prediction-form').addEventListener('submit', async function(e) {
     e.preventDefault();
 
-    const placeholder = document.getElementById('placeholder-state');
-    const resultState = document.getElementById('result-state');
-    const spinner = document.getElementById('loading-spinner');
-    const resultName = document.getElementById('result-name');
+    const receipt = document.getElementById('receipt-paper');
     const flowerImage = document.getElementById('flower-image');
-    const errorMsg = document.getElementById('error-msg');
+    const resultName = document.getElementById('result-name');
+    const printTime = document.getElementById('print-time');
+    const statusMsg = document.getElementById('status-msg');
+    const errorBox = document.getElementById('error-box');
 
-    // 1. เริ่มโหลด: ซ่อนทุกอย่าง แสดง Spinner
-    placeholder.style.display = 'none';
-    resultState.style.display = 'none';
-    spinner.style.display = 'block';
+    // 1. Reset
+    receipt.classList.remove('printing');
     
-    // Reset รูปภาพ
-    flowerImage.style.display = 'block'; 
-    errorMsg.style.display = 'none';
+    // โชว์ข้อความสถานะ
+    statusMsg.style.display = 'block'; 
+    statusMsg.innerText = "PROCESSING..."; // กำลังประมวลผล
+    
+    flowerImage.style.display = 'none';
+    errorBox.style.display = 'none';
+    flowerImage.removeAttribute('src');
+
+    await new Promise(r => setTimeout(r, 500));
 
     const formData = new FormData(this);
 
     try {
-        const response = await fetch('/api/predict', {
-            method: 'POST',
-            body: formData
-        });
+        const response = await fetch('/api/predict', { method: 'POST', body: formData });
         const data = await response.json();
 
-        // หน่วงเวลา 0.8 วิ ให้ดูเหมือนคิด
-        setTimeout(() => {
-            spinner.style.display = 'none';
+        if (data.error) {
+            alert(data.error);
+            statusMsg.innerText = "ERROR!";
+        } else {
+            resultName.innerText = data.class;
+            
+            const now = new Date();
+            printTime.innerText = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
 
-            if (data.error) {
-                alert("Error: " + data.error);
-                placeholder.style.display = 'block'; // กลับไปหน้าเริ่ม
-            } else {
-                // 2. แสดงผล
-                resultState.style.display = 'block';
-                resultName.innerText = data.class;
-                
-                // ใส่ Timestamp ต่อท้ายเพื่อแก้ปัญหา Browser จำรูปเดิม (Cache)
-                flowerImage.src = `/static/images/${data.image_file}?t=${new Date().getTime()}`;
-            }
-        }, 800);
+            const newImageSrc = `/static/images/${data.image_file}?t=${Date.now()}`;
+
+            flowerImage.onload = function() {
+                this.style.display = 'block';
+                errorBox.style.display = 'none';
+            };
+            flowerImage.onerror = function() {
+                this.style.display = 'none';
+                errorBox.style.display = 'block';
+            };
+
+            flowerImage.src = newImageSrc;
+            
+            // 2. เริ่มปริ้น -> สั่งซ่อนข้อความสถานะทันที
+            statusMsg.style.display = 'none';
+            receipt.classList.add('printing');
+        }
 
     } catch (error) {
         console.error(error);
-        spinner.style.display = 'none';
-        placeholder.style.display = 'block';
-        alert("เกิดข้อผิดพลาดในการเชื่อมต่อ");
+        statusMsg.innerText = "CONNECTION FAILED";
     }
 });

@@ -1,206 +1,120 @@
-/* นำเข้าฟอนต์น่ารักๆ อ่านง่าย */
-@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap');
-
 :root {
-    /* --- ชุดสีใหม่: ม่วงชมพู พาสเทล (ไม่แสบตา) --- */
-    
-    /* พื้นหลัง: ไล่สีจาก "ม่วงลาเวนเดอร์อ่อนๆ" ไป "ชมพูนม" */
-    --bg-gradient: linear-gradient(135deg, #e0c3fc 0%, #fbc2eb 100%);
-    
-    /* สีหลัก (ปุ่ม/หัวข้อ): ม่วงออร์คิด ไล่ไป ชมพูเข้ม (แบบด้าน ไม่สะท้อนแสง) */
-    --primary-gradient: linear-gradient(to right, #b24592, #f15f79);
-    
-    --card-bg: #ffffff;
-    --text-color: #555;        /* สีตัวหนังสือเทาเข้ม อ่านสบายตากว่าสีดำสนิท */
-    --soft-gray-bg: #fdfbfd;   /* พื้นหลังฝั่งขวา สีขาวอมชมพูจางๆ */
+    --pastel-purple: #E0C3FC;
+    --pastel-pink: #FF9AA2;
+    --pastel-orange: #FFB7B2;
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --text-color: #555;
 }
 
 body {
-    font-family: 'Sarabun', sans-serif;
-    background: var(--bg-gradient);
-    min-height: 100vh;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    color: var(--text-color);
+    margin: 0; padding: 0; min-height: 100vh;
+    font-family: 'Quicksand', sans-serif;
+    display: flex; justify-content: center; align-items: center;
+    overflow: hidden; color: var(--text-color);
 }
 
-/* --- การ์ดหลัก (กล่องใหญ่) --- */
-.card-container {
-    background: var(--card-bg);
-    width: 100%;
-    max-width: 850px;
-    border-radius: 25px; /* มุมโค้งมนขึ้น */
-    box-shadow: 0 20px 40px rgba(178, 69, 146, 0.15); /* เงาสีม่วงจางๆ */
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+.bg-image {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: url('https://images.unsplash.com/photo-1490750967868-58cb75063ed4?q=80&w=2500') center/cover;
+    z-index: -2;
+}
+.overlay-gradient {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, rgba(224, 195, 252, 0.7), rgba(255, 154, 162, 0.6));
+    backdrop-filter: blur(10px); z-index: -1;
 }
 
-/* --- ส่วนหัวข้อ --- */
-.header-section {
-    background: var(--primary-gradient);
-    padding: 25px;
-    text-align: center;
-    color: white;
+#floating-container { position: fixed; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+.floater { position: absolute; opacity: 0.6; animation: floatUp linear infinite; font-size: 20px; }
+@keyframes floatUp { 0% { transform: translateY(110vh); opacity: 0; } 50% { opacity: 0.8; } 100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; } }
+
+.glass-card {
+    display: flex; width: 850px; max-width: 95%;
+    background: var(--glass-bg); backdrop-filter: blur(20px);
+    border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    border: 4px solid white; position: relative; z-index: 10; overflow: hidden;
 }
 
-.header-section h1 {
-    margin: 0;
-    font-size: 26px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1); /* เงาตัวหนังสือบางๆ */
-}
+.left-section { flex: 1; padding: 40px; border-right: 2px dashed #ddd; z-index: 2; background: rgba(255,255,255,0.5); }
+.header-box h1 { font-size: 2.2rem; color: #6A5ACD; margin: 0; line-height: 1; }
+.header-box span { color: var(--pastel-pink); }
 
-/* --- พื้นที่เนื้อหา (แบ่งซ้าย-ขวา) --- */
-.main-content {
-    display: flex;
-    flex-wrap: wrap;
-}
+.input-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
+.input-box label { display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 5px; color: #888; }
+.input-box input { width: 100%; padding: 10px; border: 2px solid #eee; border-radius: 10px; font-family: inherit; transition: 0.3s; }
+.input-box input:focus { border-color: var(--pastel-pink); outline: none; background: white; }
 
-/* --- ฝั่งซ้าย (ฟอร์ม) --- */
-.left-panel {
-    flex: 1;
-    min-width: 320px;
-    padding: 40px;
-    border-right: 1px solid #f0f0f0;
-}
-
-.left-panel h3 {
-    margin-top: 0;
-    margin-bottom: 25px;
-    color: #b24592; /* หัวข้อสีม่วง */
-    font-weight: 600;
-}
-
-.form-group { margin-bottom: 20px; }
-
-.form-group label {
-    display: block;
-    font-size: 14px;
-    color: #888;
-    margin-bottom: 8px;
-    font-weight: 500;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 12px 15px;
-    border: 2px solid #eee; /* ขอบสีเทาอ่อน */
-    border-radius: 12px;
-    font-size: 16px;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-    background: #fafafa;
-}
-
-/* ตอนคลิกพิมพ์ ให้ขอบเป็นสีชมพู */
-.form-group input:focus {
-    border-color: #f15f79;
-    background: #fff;
-    outline: none;
-    box-shadow: 0 0 0 4px rgba(241, 95, 121, 0.1);
-}
-
-/* --- ปุ่มกด --- */
 button {
-    width: 100%;
-    padding: 15px;
-    margin-top: 15px;
-    background: var(--primary-gradient);
-    color: white;
-    border: none;
-    border-radius: 50px; /* ปุ่มรีโค้งมน */
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 4px 15px rgba(241, 95, 121, 0.3); /* เงาสีชมพู */
+    width: 100%; margin-top: 25px; padding: 15px;
+    background: linear-gradient(to right, var(--pastel-pink), var(--pastel-orange));
+    border: none; border-radius: 50px; color: white; font-weight: bold; font-size: 1.1rem;
+    cursor: pointer; transition: 0.2s; box-shadow: 0 5px 15px rgba(255, 154, 162, 0.4);
 }
+button:hover { transform: translateY(-2px); }
 
-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(178, 69, 146, 0.4);
+.printer-zone {
+    flex: 1; position: relative; background: #f4f4f4;
+    display: flex; flex-direction: column; align-items: center; padding-top: 0;
 }
-
-/* --- ฝั่งขวา (ผลลัพธ์) --- */
-.right-panel {
-    flex: 1;
-    min-width: 320px;
-    padding: 40px;
-    background-color: var(--soft-gray-bg);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    position: relative;
+.printer-slot {
+    width: 220px; height: 15px; background: #333; border-radius: 0 0 10px 10px;
+    z-index: 20; position: relative; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
+.paper-exit-area { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; padding-top: 10px; }
 
-/* Placeholder (ตอนยังไม่กด) */
-#placeholder-state .icon-circle {
-    font-size: 60px;
-    margin-bottom: 15px;
-    opacity: 0.8;
-    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+/* ตัวใบเสร็จ */
+.receipt {
+    width: 260px; background: white; padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); font-family: 'VT323', monospace;
+    text-align: center; position: relative; transform: translateY(-120%);
+    z-index: 10; /* ให้ใบเสร็จอยู่เหนือข้อความสถานะ */
 }
+.receipt.printing { animation: printScroll 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+@keyframes printScroll { 0% { transform: translateY(-120%); } 100% { transform: translateY(20px); } }
 
-#placeholder-state p {
-    color: #999;
-    line-height: 1.6;
+.receipt-header { display: flex; justify-content: space-between; font-size: 1.2rem; color: #888; margin-bottom: 10px; }
+.divider-dashed { border-top: 2px dashed #ddd; margin: 10px 0; }
+
+.photo-frame {
+    width: 100%; height: 180px; background: #f0f0f0; border: 1px solid #ddd;
+    margin-bottom: 10px; overflow: hidden; position: relative;
 }
+#flower-image { width: 100%; height: 100%; object-fit: cover; }
 
-/* กล่องใส่รูปภาพ */
-.image-box {
-    width: 220px;
-    height: 220px;
-    background: white;
-    border-radius: 20px;
-    padding: 10px;
-    box-shadow: 0 10px 25px rgba(178, 69, 146, 0.1); /* เงาฟุ้งๆ */
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+.receipt-body .label { font-size: 0.9rem; color: #aaa; display: block; margin-top: 15px; }
 
-#flower-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 15px;
-}
-
+/* --- ชื่อสายพันธุ์ ใหญ่และเด่น --- */
 #result-name {
-    background: var(--primary-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent; /* ตัวหนังสือไล่สี */
-    font-size: 32px;
-    font-weight: 700;
-    margin: 0;
+    font-size: 4rem; /* ใหญ่สะใจ */
+    margin: 5px 0 30px 0; /* เว้นระยะล่างเยอะหน่อยเพราะเอา Thank you ออกแล้ว */
     text-transform: uppercase;
+    
+    /* ใส่สี Gradient ให้ตัวหนังสือ */
+    background: linear-gradient(45deg, #6A5ACD, #FF9AA2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    font-weight: 900;
     letter-spacing: 2px;
+    line-height: 1;
 }
 
-/* Spinner */
-.spinner {
-    border: 4px solid rgba(178, 69, 146, 0.1);
-    border-top: 4px solid #b24592;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s linear infinite;
-    position: absolute;
+/* ข้อความสถานะ (READY TO CAST...) */
+#status-msg {
+    position: absolute; top: 50%; width: 100%; text-align: center;
+    font-weight: bold; color: #aaa; letter-spacing: 2px;
+    z-index: 1; /* อยู่ต่ำกว่าใบเสร็จ ใบเสร็จจะไหลมาทับ */
 }
-@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-/* Mobile Responsive */
-@media (max-width: 768px) {
-    .left-panel { border-right: none; border-bottom: 1px solid #f0f0f0; }
-    .card-container { max-width: 100%; border-radius: 0; box-shadow: none; background: transparent;}
-    .main-content { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-    .header-section { border-radius: 20px 20px 0 0; }
+.zigzag-bottom {
+    position: absolute; bottom: -10px; left: 0; width: 100%; height: 10px;
+    background: linear-gradient(45deg, transparent 33.333%, #ffffff 33.333%, #ffffff 66.667%, transparent 66.667%),
+                linear-gradient(-45deg, transparent 33.333%, #ffffff 33.333%, #ffffff 66.667%, transparent 66.667%);
+    background-size: 20px 20px;
+}
+
+@media (max-width: 800px) {
+    .glass-card { flex-direction: column; }
+    .left-section { border-right: none; border-bottom: 2px dashed #ddd; }
+    .receipt { width: 80%; }
 }
