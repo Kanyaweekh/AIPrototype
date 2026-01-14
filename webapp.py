@@ -92,4 +92,5 @@ def check_files():
 
 if __name__ == "__main__":
     # รันบน Port 5002
-    app.run(host='localhost', debug=True, port=5002)
+    app.run(host='0.0.0.0', debug=True, port=8003)
+
