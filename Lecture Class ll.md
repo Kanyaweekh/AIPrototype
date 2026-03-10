@@ -31,19 +31,19 @@ ssh username@IPaddress
 ## 👥 4. การจัดการ User และ Group
 เพิ่ม User ใหม่: สำหรับให้เพื่อนหรือผู้ร่วมงานเข้าใช้งาน VM เดียวกัน
 ```bash
-sudo adduser friendusername
+sudo adduser <friendusername>
 ```
 เพิ่มสิทธิ์ผู้ดูแลระบบ (SuperUser/sudo): ให้ User อื่นสามารถรันคำสั่งระดับผู้ดูแลระบบได้
 ```bash
-sudo adduser friendusername sudo
+sudo adduser <friendusername> sudo
 ```
 จัดการ Group: ย้าย User ไปอยู่ Group เดียวกัน (เช่น ชื่อเพื่อนเป็น Group, ชื่อเราเป็น Folder)
 ```bash
-sudo usermod friendusername yourusername
+sudo usermod <friendusername> <yourusername>
 ```
 ตรวจสอบ Group: ดูว่ามีใครอยู่ใน Server หรือ User อยู่ใน Group ใดบ้าง
 ```bash
-sudo groups yourusername
+sudo groups <yourusername>
 ```
 ## 📦 5. การรับ-ส่งไฟล์ด้วย SCP (Secure Copy)
 ใช้สำหรับการส่งและดึงไฟล์ระหว่าง เครื่องของเรา ↔ Cloud (VM)
