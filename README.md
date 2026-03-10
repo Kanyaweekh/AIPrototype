@@ -55,7 +55,7 @@
 | Command Line on Terminal | [`Lecture Class l.md`](https://github.com/Kanyaweekh/AIPrototype/blob/c111ca314aa2f982aad5ded9f1fb5e107271a3bb/Lecture%20Class%20l.md) |
 | Cloud Virtual Machines |[`Lecture Class ll.md`](https://github.com/Kanyaweekh/AIPrototype/blob/c111ca314aa2f982aad5ded9f1fb5e107271a3bb/Lecture%20Class%20ll.md)|
 | Install Miniconda (Linux) |[`Lecture Class lll.md`](https://github.com/Kanyaweekh/AIPrototype/blob/c111ca314aa2f982aad5ded9f1fb5e107271a3bb/Lecture%20Class%20lll.md)|
-| Managing Conda Environment |[`Lecture Class lV.md`](https://github.com/Kanyaweekh/AIPrototype/blob/c111ca314aa2f982aad5ded9f1fb5e107271a3bb/Lecture%20Class%20lV.md)|
+| Managing Conda Environment |[`Lecture Class lV.md`](https://github.com/Kanyaweekh/AIPrototype/blob/40999317631b7dcf5e28f3d416ac9c270b59727e/Lecture%20Class%20lV.md)|
 
 ---
 
