@@ -1,4 +1,5 @@
 # Install Miniconda (Linux) 
+---
 
 อธิบายขั้นตอนการติดตั้ง **Miniconda บนระบบ Linux** ซึ่งใช้สำหรับจัดการ Python environment และ package สำหรับงานพัฒนาและรัน Server
 
