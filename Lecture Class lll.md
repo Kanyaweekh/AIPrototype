@@ -18,7 +18,7 @@ bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
 rm ~/miniconda3/miniconda.sh
 ```
 ### 1.2 Activate Miniconda
-หลังจากติดตั้งเสร็จแล้ว ให้ ปิดแล้วเปิด Terminal ใหม่ หรือใช้คำสั่งด้านล่างเพื่อ refresh environment
+หลังจากติดตั้งเสร็จแล้ว ให้ปิดแล้วเปิด Terminal ใหม่ หรือใช้คำสั่งด้านล่างเพื่อ refresh environment
 ```bash
 source ~/miniconda3/bin/activate
 ```
@@ -49,12 +49,12 @@ screen -S <screen_name>
 ```bash
 screen -R
 ```
-### 3.2 คำสั่งควบคุม Screen (Shortcuts)
-* `Ctrl + A + D` → ออกจาก session (โปรแกรมยังทำงานอยู่)
+### 3.2 คำสั่งลัดควบคุม Screen (Shortcuts)
+* `Ctrl + A + D` → ออกจาก session ปัจจุบัน โดยระบบจะยังคงประมวลผลอยู่เบื้องหลัง
 * `Ctrl + A + K + Y` → ออกจากและลบ session
 * `Ctrl + A + [` → Freeze หน้าจอ (สามารถเลื่อนดูได้)
-* `q + Enter` → ออกจากโหมด freeze
-* `Ctrl + C` → หยุดโปรแกรมที่กำลังทำงาน
+* `q + Enter` → การออกจากสถานะระงับหน้าจอชั่วคราว
+* `Ctrl + C` → การยุติโปรแกรมที่กำลังประมวลผลอยู่ในปัจจุบัน
 ### 3.3 การลบ Screen ที่ชื่อซ้ำ
 หากมี Screen ชื่อซ้ำกัน ให้ทำตามขั้นตอนดังนี้
   ตรวจสอบ Screen ที่มีอยู่ทั้งหมด: สามารถกด `Tab` หลังคำสั่งเพื่อดูรายการ screen ที่มีทั้งหมดได้
