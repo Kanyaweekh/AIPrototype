@@ -48,19 +48,21 @@ conda install <ชื่อแพ็กเกจ>
 conda list
 ```
 ## 4. GitHub Command Line
-⚙️การตั้งค่าเริ่มต้น (ทำครั้งแรกครั้งเดียว)
+⚙️การตั้งค่าเริ่มต้น 
+> ดำเนินการเพียงครั้งเดียวในการใช้งานครั้งแรก
 ```bash
 git config --global user.name "ชื่อผู้ใช้"
 git config --global user.email "อีเมล"
 ```
-## Clone Repository
+Clone Repository
 ```bash
 git clone <repository_url>
 ```
 
 ---
 
-## Save Code to GitHub
+Save Code to GitHub
+
 ขั้นตอนเมื่อมีการแก้ไขไฟล์
 
 * 1. ดึงเวอร์ชันล่าสุด
@@ -84,7 +86,7 @@ git push
 ```
 !! ลำดับการส่งงานขึ้น GitHub !!
 
-  **✨ จำสั้นๆ: add → commit → push**
+  **✨ จำสั้น ๆ : add → commit → push**
 
 🔍 เช็คสถานะไฟล์ (git status)
 - สีแดง: ไฟล์ใหม่ที่ Git ยังไม่เคยมี
